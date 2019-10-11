@@ -1,15 +1,12 @@
 node {
-    def app
-    def apptest
 
     stage('Clone repository') {
         checkout scm
     }
 
     stage('Build image') {
-	sh "docker build -t dotnetapp:B${BUILD_NUMBER} -f ./dotnetapp/Dockerfile.Build ."
-        sh "docker build -t dotnetapp:test:B${BUILD_NUMBER} -f ./dotnetapp/Dockerfile.Test ."
-        sh "docker build -t dotnetapp:run:B${BUILD_NUMBER} -f ./dotnetapp/Dockerfile.Run ."
+	sh "docker build -t dotnetapp -f ./dotnetapp/Dockerfile ."
+        sh "docker build --pull --target testrunner -t ./dotnetapp:test ."
     }
 
     stage('Test image') {
