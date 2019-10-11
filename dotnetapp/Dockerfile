@@ -2,8 +2,8 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
-COPY /Users/miqbal/UDocker/dotnetcore-test/dotnetapp/*.csproj ./dotnetapp/
-COPY /Users/miqbal/UDocker/dotnetcore-test/utils/*.csproj ./utils/
+COPY /Users/miqbal/UDocker/dotnetcore-test/dotnetapp/* ./dotnetapp/
+COPY /Users/miqbal/UDocker/dotnetcore-test/utils/* ./utils/
 WORKDIR /app/dotnetapp
 RUN dotnet restore
 
