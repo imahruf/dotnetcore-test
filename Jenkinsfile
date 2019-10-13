@@ -5,8 +5,8 @@ node {
     }
 
     stage('Build image') {
-	sh "docker build -t dotnetapp -f ./dotnetapp/Dockerfile ."
-        sh "docker build --pull --target testrunner -t ./dotnetapp:test ."
+	sh "docker build -t dotnetapp -f Dockerfile ."
+        sh "docker build --pull --target testrunner -t dotnetapp:test ."
     }
 
     stage('Test image') {
