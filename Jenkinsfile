@@ -11,12 +11,8 @@ node {
 	sh "docker build --pull --target testrunner -t dotnetapp:test -f Dockerfile ."
     }
 	
-   stage('Test container') {
-	containerID = sh (script: "docker run -v \"\$(pwd)\"/TestResults:/app/tests/TestResults -d dotnetapp:test",returnStdout: true).trim()
-	echo "Container ID is ==> ${containerID}"
-	sh "docker cp ${containerID}:app/tests/TestResults \"\$(pwd)\"/TestResults"
-	sh "docker stop ${containerID}"
-	sh "docker rm ${containerID}"
-   }
+    stage('Run Test image') {
+	sh "docker run --rm -v \"\$(pwd)\"/TestResults:/app/tests/TestResults dotnetapp:test"
+    }
 
 }   
