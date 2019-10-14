@@ -12,7 +12,7 @@ node {
     }
 	
     stage('Run Test image') {
-	sh "docker run --rm -iv\${PWD}:/app/tests/TestResults/*.trx dotnetapp:test sh -s <<EOF chown \$(id -u):\$(id -g) *.trx cp -a *.trx /\${PWD}"
+	sh "docker run --rm -iv \${PWD}:/app/tests/TestResults/*.trx dotnetapp:test sh -s <<EOF chown \$(id -u):\$(id -g) *.trx cp -a *.trx \${PWD}"
     }
 
 }   
