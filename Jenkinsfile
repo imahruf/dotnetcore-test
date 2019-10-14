@@ -13,7 +13,7 @@ node {
 	
     stage('Test container') {
        containerID = sh (
-            script: "docker run -d dotnetapp:test", 
+            script: "docker run -v \"\$(pwd)\"/TestResults:/app/tests/TestResults -d dotnetapp:test", 
         returnStdout: true
         ).trim()
         echo "Container ID is ==> ${containerID}"
