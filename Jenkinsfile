@@ -12,7 +12,9 @@ node {
     }
 	
     stage('Run Test image') {
-	sh "docker run --rm -iv \${PWD}:/app/tests/TestResults/*.trx dotnetapp:test sh -s <<EOF chown \$(id -u):\$(id -g) *.trx cp -a *.trx \${PWD}"
+	sh "docker create -ti --name dummy dotnetapp:test bash" 
+	sh "docker cp dummy:/app/tests/TestResults \"\$(pwd)\"/TestResults"
+	sh "docker rm -f dummy"
     }
 
 }   
