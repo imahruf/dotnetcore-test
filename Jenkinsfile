@@ -12,9 +12,7 @@ node {
     }
 	
     stage('Run Test image') {
-	sh "docker create -ti --name dummy dotnetapp:test bash" 
-	sh "docker cp dummy:/app/tests/TestResults \"\$(pwd)\"/TestResults"
-	sh "docker rm -f dummy"
+	sh "docker create -ti --name dummy dotnetapp:test bash docker cp dummy:/app/tests/TestResults \"\$(pwd)\"/TestResults docker rm -f dummy"
     }
 
 }   
