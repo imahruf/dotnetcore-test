@@ -12,7 +12,7 @@ node {
     }
 
     stage('Test image') {
-	sh "docker run --rm -v \"\$(pwd)\"/TestResults:/app/tests/TestResults dotnetapp:test"
+	sh "docker run -v \"\$(pwd)\"/TestResults:/app/tests/TestResults dotnetapp:test"
     }
 
 }
