@@ -12,7 +12,7 @@ node {
     }
 	
    stage('Test container') {
-	containerID = sh (script: "docker run -v \"\$(pwd)\"/TestResults:/app/tests/TestResults -d dotnetapp:test",returnStdout: true).trim()
+	containerID = sh (script: "docker run -d dotnetapp:test",returnStdout: true).trim()
 	echo "Container ID is ==> ${containerID}"
 	sh "docker cp ${containerID}:app/tests/TestResults \"\$(pwd)\"/TestResults"
 	sh "docker stop ${containerID}"
