@@ -17,7 +17,7 @@ node {
         returnStdout: true
         ).trim()
         echo "Container ID is ==> ${containerID}"
-        sh "docker cp ${containerID}:TestResults/*.trx \"\$(pwd)\"/TestResults/*.trx"
+        sh "docker cp ${containerID}:TestResults/*.trx TestResults/*.trx"
         sh "docker stop ${containerID}"
         sh "docker rm ${containerID}"
     }
