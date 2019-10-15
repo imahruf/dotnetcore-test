@@ -12,7 +12,8 @@ node {
     }
 	
     stage('Run Test image') {
-	sh "docker run -i --rm -v \${PWD}/TestResults:/app/tests/TestResults dotnetapp:test /bin/bash << COMMANDS cp -a /app/tests/TestResults/* \${PWD}/TestResults chown -R \$(id -u):\$(id -u) /app/tests/TestResults COMMANDS"
+	sh "docker run -i --rm -v \${PWD}/TestResults:/app/tests/TestResults dotnetapp:test /bin/bash <<COMMANDS cp -a /app/tests/TestResults/* \${PWD}/TestResults chown -R \$(id -u):\$(id -u) /app/tests/TestResults 
+	    COMMANDS"
     }
 
 }   
