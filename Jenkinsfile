@@ -14,7 +14,7 @@ node {
     stage('Run Test image') {
 	sh """
 	docker run --name sample -d dotnetapp:test
-	docker cp sample:/app/tests/TestResults/*.trx .
+	docker cp sample:/app/tests/TestResults .
 	docker rm -f sample
 	"""
     }
