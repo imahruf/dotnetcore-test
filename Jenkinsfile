@@ -12,11 +12,7 @@ node {
     }
 	
     stage('Run Test image') {
-	sh """
-	docker run --name sample -d dotnetapp:test
-	docker cp sample:/app/tests/TestResults .
-	docker rm -f sample
-	"""
+	sh "docker run -v \"\$(pwd)\"/TestResults:/app/tests/TestResults dotnetapp:test cp \"\$(pwd)\"/TestResults /app/tests/TestResults"
     }
 
 }   
