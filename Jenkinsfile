@@ -12,7 +12,7 @@ node {
     }
 	
     stage('Run Test image') {
-	sh "docker run --rm dotnetapp:test"
+	docker.image("dotnetapp:test").run()
     }
 
 }   
