@@ -12,7 +12,8 @@ node {
     }
 	
     stage('Run Test image') {
-	sh "docker run -v TestResults:/app/tests/TestResults dotnetapp:test cp TestResults /app/tests/TestResults"
+	sh "docker run -v \"\$(pwd)\"/TestResults:/app/tests/TestResults dotnetapp:test cp TestResults /app/tests/TestResults"
+	    
     }
 
 }   
