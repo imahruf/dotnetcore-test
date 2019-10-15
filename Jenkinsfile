@@ -12,10 +12,11 @@ node {
     }
 	
     stage('Run Test image') {
-	docker.image("dotnetapp:test").inside(){
-		cp "/app/tests/TestResults/*.trx" .
-
-	}
+	sh """
+	docker run --name sample -d dotnetapp:test
+	docker cp sample:/app/tests/TestResults/*.trx .
+	docker rm -f sample
+	"""
     }
 
 }   
