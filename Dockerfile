@@ -20,7 +20,7 @@ FROM build AS testrunner
 WORKDIR /app/tests
 COPY tests/. .
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
-CMD ["cp","/app/tests/TestResults","."]
+CMD ["cp","/app/tests/TestResults","$(pwd)/TestResults"]
 
 
 FROM mcr.microsoft.com/dotnet/core/runtime:3.0 AS runtime
