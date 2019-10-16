@@ -20,14 +20,15 @@ pipeline {
 	    steps {
 	    	catchError {
 			sh "docker run --name dummy dotnetapp:test"   
-			sh "rm -rf \"\$(pwd)\"/TestResults"
-			sh "docker cp dummy:/app/tests/TestResults \"\$(pwd)\"/TestResults"
-			sh "docker rm dummy"
+			
 	    	}
 	    }
 	    post {
                 always {
-                    echo 'Mahruf Compile stage successful'
+                    echo 'Terminate Container'
+			sh "rm -rf \"\$(pwd)\"/TestResults"
+			sh "docker cp dummy:/app/tests/TestResults \"\$(pwd)\"/TestResults"
+			sh "docker rm dummy"
                 }
             }
     }
