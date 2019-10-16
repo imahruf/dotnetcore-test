@@ -24,6 +24,7 @@ pipeline {
 			sh "rm -rf \"\$(pwd)\"/TestResults"
 			sh "docker cp dummy:/app/tests/TestResults \"\$(pwd)\"/TestResults"
 			sh "docker rm dummy"
+			step ([$class: 'MSTestPublisher', testResultsFile:"**/TestResults/UnitTests.trx", failOnError: true, keepLongStdio: true])
                 }
             }
     }
