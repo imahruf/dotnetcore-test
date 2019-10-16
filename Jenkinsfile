@@ -18,5 +18,10 @@ node {
 	sh "docker rm dummy"
 	    
     }
+   post {
+    always {
+      step ([$class: 'MSTestPublisher', testResultsFile:"**/TestResults/UnitTests.trx", failOnError: true, keepLongStdio: true])
+    }
+   }
 
 }   
