@@ -1,11 +1,6 @@
 pipeline {
     agent any
  stages {
-    stage('Clone repository') {
-	    steps {
-        checkout scm
-	    }
-    }
     stage('Build app image') {
 	    steps {
 	sh "docker build -t dotnetapp -f Dockerfile ."
