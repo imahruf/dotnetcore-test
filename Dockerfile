@@ -19,7 +19,7 @@ RUN dotnet publish -c Release -o out
 FROM build AS testrunner
 WORKDIR /app/tests
 COPY tests/. .
-ENTRYPOINT ["dotnet", "test", "--logger:trx;LogFileName=test_results.xml"]
+ENTRYPOINT ["dotnet", "test", "--logger:trx;LogFileName=UnitTests.trx"]
 
 
 FROM mcr.microsoft.com/dotnet/core/runtime:3.0 AS runtime
