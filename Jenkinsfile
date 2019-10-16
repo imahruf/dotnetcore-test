@@ -12,15 +12,13 @@ node {
     }
 	
     stage('Run Test image') {
-	sh "docker run --name dummy dotnetapp:test"
-	sh "rm -rf \"\$(pwd)\"/TestResults"
-	sh "docker cp dummy:/app/tests/TestResults \"\$(pwd)\"/TestResults"
-	sh "docker rm dummy"
-	    
+	sh "docker run --name dummy dotnetapp:test"    
     }
    post {
     always {
-      step ([$class: 'MSTestPublisher', testResultsFile:"**/TestResults/UnitTests.trx", failOnError: true, keepLongStdio: true])
+        sh "rm -rf \"\$(pwd)\"/TestResults"
+	sh "docker cp dummy:/app/tests/TestResults \"\$(pwd)\"/TestResults"
+	sh "docker rm dummy"
     }
    }
 
