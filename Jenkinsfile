@@ -26,11 +26,8 @@ pipeline {
 	    	}
 	    }
 	    post {
-                success {
-                    echo 'Compile stage successful'
-                }
-                failure {
-                    echo 'Compile stage failed'
+                always {
+                    echo 'Mahruf Compile stage successful'
                 }
             }
     }
