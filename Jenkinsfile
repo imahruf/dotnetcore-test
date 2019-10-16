@@ -17,6 +17,7 @@ pipeline {
 			sh "docker run --name dummy dotnetapp:test"   
 			
 	    	}
+            }
     }
     stage('sonar-scanner') {
       def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
