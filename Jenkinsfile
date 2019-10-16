@@ -13,6 +13,7 @@ node {
 	
     stage('Run Test image') {
 	sh "docker run --name dummy dotnetapp:test"
+	sh "rm -rf \"\$(pwd)\"/TestResults"
 	sh "docker cp dummy:/app/tests/TestResults \"\$(pwd)\"/TestResults"
 	sh "docker rm dummy"
 	    
