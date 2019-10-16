@@ -35,7 +35,7 @@ pipeline {
 			step ([$class: 'MSTestPublisher', testResultsFile:"**/TestResults/UnitTests.trx", failOnError: true, keepLongStdio: true])
                 }
             }
-    }
+    
 }   
 post {
         success {
