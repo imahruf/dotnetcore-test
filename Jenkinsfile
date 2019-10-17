@@ -8,13 +8,13 @@ pipeline {
   }
   stage('Build Test Image') {
    steps {
-    sh "docker build --pull --target testrunner -t dotnetapp:test -f Dockerfile ."
+    sh "docker build --pull --target testrunner -t mahruf/dotnetapp:test -f Dockerfile ."
    }
   }
   stage('Run Test Image') {
    steps {
     catchError {
-     sh "docker run --name dummy dotnetapp:test"
+     sh "docker run --name dummy mahruf/dotnetapp:test"
     }
    }
    post {
