@@ -1,6 +1,6 @@
 
 pipeline {
- agent any
+ agent any {
  node {
  stages {
   stage('Build app image') {
@@ -49,5 +49,6 @@ pipeline {
    echo 'pipeline failed, at least one step failed'
   }
  }
+}
 }
 }
