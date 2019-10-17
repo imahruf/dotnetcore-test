@@ -48,7 +48,7 @@ pipeline {
    
    steps {
     withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://registry.hub.docker.com" ]) {
-      sh 'docker push mahruf/dotnetapp:latest'
+      sh 'docker push mahruf/dotnetapp:tagname'
     }
    }
   }
