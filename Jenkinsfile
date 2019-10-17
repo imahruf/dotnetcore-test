@@ -31,11 +31,13 @@ pipeline {
   stage('SonarQube analysis') { 
    steps{
     script {
-             sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
+             def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
         }
     withSonarQubeEnv('sonarqube'){
+     withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
         sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.verbose=true -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=dotnetcore-test -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=dot -Dsonar.sources=**/dotnetapp/*.cs -Dsonar.sources=**/utils/*.cs -Dsonar.tests=**/tests/*.cs -Dsonar.exclusions=*.json"
-    }
+     }
+     }
    }
   }
  }
