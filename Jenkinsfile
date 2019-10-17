@@ -1,7 +1,5 @@
-
 pipeline {
  agent any
- node {
  stages {
   stage('Build app image') {
    steps {
@@ -29,17 +27,20 @@ pipeline {
     }
    }
   }
-  
-  stage('SonarQube analysis') { 
-   steps{
-    def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-    withSonarQubeEnv('sonarqube'){
-     withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
-        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.verbose=true -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=dotnetcore-test -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=dot -Dsonar.sources=**/dotnetapp/*.cs -Dsonar.sources=**/utils/*.cs -Dsonar.tests=**/tests/*.cs -Dsonar.exclusions=*.json"
-     }
-     }
-   }
+  stage('Sonarqube') {
+    environment {
+        scannerHome = tool 'SonarQubeScanner'
+    }
+    steps {
+        withSonarQubeEnv('sonarqube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
+        timeout(time: 10, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+    }
   }
+  
  }
  post {
   success {
@@ -49,5 +50,4 @@ pipeline {
    echo 'pipeline failed, at least one step failed'
   }
  }
-}
 }
