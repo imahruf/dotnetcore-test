@@ -1,3 +1,5 @@
+def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
+
 pipeline {
  agent any
  stages {
@@ -31,7 +33,7 @@ pipeline {
   stage('SonarQube analysis') { 
    steps{
     script {
-             def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
+              sonarqubeScannerHome = tool 'sonar';
         }
     withSonarQubeEnv('sonarqube'){
      withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
