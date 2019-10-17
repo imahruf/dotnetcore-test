@@ -37,7 +37,7 @@ pipeline {
             sh "${scannerHome}/bin/sonar-scanner -X -e -Dsonar.verbose=true -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=dotnetcore-test -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=dnc"
          }
         }
-        timeout(time: 10, unit: 'MINUTES') {
+        timeout(time: 20, unit: 'MINUTES') {
             waitForQualityGate abortPipeline: true
         }
     }
