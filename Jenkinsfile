@@ -1,17 +1,17 @@
 pipeline {
  agent any
  stages {
-  stage('Build app image') {
+  stage('Build App Image') {
    steps {
     sh "docker build -t dotnetapp -f Dockerfile ."
    }
   }
-  stage('Build test image') {
+  stage('Build Test Image') {
    steps {
     sh "docker build --pull --target testrunner -t dotnetapp:test -f Dockerfile ."
    }
   }
-  stage('Run Test image') {
+  stage('Run Test Image') {
    steps {
     catchError {
      sh "docker run --name dummy dotnetapp:test"
@@ -27,7 +27,7 @@ pipeline {
     }
    }
   }
-  stage('Sonarqube') {
+  stage('Analyse Code') {
     environment {
         scannerHome = tool 'sonar'
     }
@@ -42,6 +42,15 @@ pipeline {
             waitForQualityGate abortPipeline: true
         }
     }
+  }
+  
+  stage('Push image') {
+   
+   steps {
+    withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://registry.hub.docker.com" ]) {
+      sh 'docker push dotnetapp'
+    }
+   }
   }
   
  }
