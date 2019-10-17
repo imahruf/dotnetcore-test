@@ -3,7 +3,7 @@ pipeline {
  stages {
   stage('Build App Image') {
    steps {
-    sh "docker build -t dotnetapp -f Dockerfile ."
+    sh "docker build -t mahruf/dotnetapp -f Dockerfile ."
    }
   }
   stage('Build Test Image') {
@@ -48,7 +48,7 @@ pipeline {
    
    steps {
     withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://registry.hub.docker.com" ]) {
-      sh 'docker push mahruf/dotnetapp:tagname'
+      sh 'docker push mahruf/dotnetapp:latest'
     }
    }
   }
