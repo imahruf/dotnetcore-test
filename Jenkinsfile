@@ -1,7 +1,7 @@
 
 pipeline {
- agent {
- node {
+ agent (any) {
+ node (master) {
  stages {
   stage('Build app image') {
    steps {
