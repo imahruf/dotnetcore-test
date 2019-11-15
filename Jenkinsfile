@@ -48,6 +48,7 @@ pipeline {
    
    steps {
     withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://registry.hub.docker.com" ]) {
+      sh 'docker login'
       sh 'docker push mahruf/dotnetapp:latest'
     }
    }
